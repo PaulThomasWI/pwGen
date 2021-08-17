@@ -1,46 +1,58 @@
-// Assignment code here
+// Initialize global variables
+var pwLength    = 0;
+var lowerChar   = 0;
+var upperChar   = 0;
+var numericChar = 0;
+var specialChar = 0;
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-function generatePassword () {
-  var passwordLength = prompt("Password Length? Between 8 and 128");
+function checkPassword() {
+  console.log("Checking Password...");
+  pwLength = prompt("Password Length? Between 8 and 128");
 
-  if ((passwordLength < 8) || (passwordLength > 128)) {
+  if ((pwLength < 8) || (pwLength > 128)) {
     alert("Don't be a rule breaker. Try again!");
     generatePassword();
   }
 
-  var passwordLower   = confirm("Lower Case? OK for Yes");
-  var passwordUpper   = confirm("Upper Case? OK for Yes");
-  var passwordNumeric = confirm("Numeric? OK for Yes");
-  var passwordSpecial = confirm("Special Characters? OK for Yes");
+  var includeLower   = confirm("Lower Case? OK for Yes");
+  var includeUpper   = confirm("Upper Case? OK for Yes");
+  var includeNumeric = confirm("Numeric? OK for Yes");
+  var includeSpecial = confirm("Special Characters? OK for Yes");
 
   var numType = 0;
-  if (passwordLower) {
+  if (includeLower) {
     numType++;
-    var lowerType = 1;
+    lowerChar = 1;
   }
 
-  if (passwordUpper) {
+  if (includeUpper) {
     numType++;
-    var upperType = 1;    
+    upperChar = 1;    
   }
 
-  if (passwordNumeric) {
+  if (includeNumeric) {
     numType++;
-    var numericType = 1;    
+    numericChar = 1;    
   }
 
-  if (passwordSpecial) {
+  if (includeSpecial) {
     numType++;
-    var specialType = 1;    
+    specialChar = 1;    
   }
 
   if (numType < 1) {
     alert("No clown passwords. Try again!");
     generatePassword();
   }
+}
+
+function generatePassword () {
+  console.log("Check Password...");
+  checkPassword();
 
   var pwLower   = "abcdefghijklmnopqrstuvwxyz";
   var pwUpper   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -49,7 +61,7 @@ function generatePassword () {
 
   var genPassword = "";
 
-  for (myCLV = 0; myCLV < passwordLength; myCLV++) {
+  for (myCLV = 0; myCLV < pwLength; myCLV++) {
     console.log(myCLV);
 
     criteriaMet = 0;
@@ -59,7 +71,7 @@ function generatePassword () {
 
       switch (myRandomNum) {
         case 0:
-          if (lowerType === 1) {
+          if (lowerChar === 1) {
             console.log("Picked a lower");
 
             // Generate a random number between 0 and lenght of lower list of numbers - 1
@@ -71,7 +83,7 @@ function generatePassword () {
           }
           
         case 1:
-          if (upperType === 1) {
+          if (upperChar === 1) {
             console.log("Picked a upper");
 
             // Generate a random number between 0 and lenght of lower list of numbers - 1
@@ -84,7 +96,7 @@ function generatePassword () {
           }
 
         case 2:
-          if (numericType === 1) {
+          if (numericChar === 1) {
             console.log("Picked a number");
 
             // Generate a random number between 0 and lenght of lower list of numbers - 1
@@ -97,7 +109,7 @@ function generatePassword () {
           }
           
         case 3:
-          if (specialType === 1) {
+          if (specialChar === 1) {
             console.log("Picked a special");
 
             // Generate a random number between 0 and lenght of lower list of numbers - 1
