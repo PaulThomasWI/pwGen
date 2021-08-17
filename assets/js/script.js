@@ -10,12 +10,18 @@ function getRandomInt(max) {
 }
 
 function checkPassword() {
-  console.log("Checking Password...");
+  // reset global variables for subsequent clicks after the first one
+  pwLength    = 0;
+  lowerChar   = 0;
+  upperChar   = 0;
+  numericChar = 0;
+  specialChar = 0;
+
   pwLength = prompt("Password Length? Between 8 and 128");
 
   if ((pwLength < 8) || (pwLength > 128)) {
     alert("Don't be a rule breaker. Try again!");
-    generatePassword();
+    checkPassword();
   }
 
   var includeLower   = confirm("Lower Case? OK for Yes");
@@ -46,12 +52,11 @@ function checkPassword() {
 
   if (numType < 1) {
     alert("No clown passwords. Try again!");
-    generatePassword();
+    checkPassword();
   }
 }
 
 function generatePassword () {
-  console.log("Check Password...");
   checkPassword();
 
   var pwLower   = "abcdefghijklmnopqrstuvwxyz";
@@ -62,61 +67,52 @@ function generatePassword () {
   var genPassword = "";
 
   for (myCLV = 0; myCLV < pwLength; myCLV++) {
-    console.log(myCLV);
-
     criteriaMet = 0;
-    do {
-      myRandomNum = getRandomInt(4);
-      console.log(myRandomNum);
 
-      switch (myRandomNum) {
+    do {
+      myRandomType = getRandomInt(4);
+
+      switch (myRandomType) {
         case 0:
           if (lowerChar === 1) {
-            console.log("Picked a lower");
-
             // Generate a random number between 0 and lenght of lower list of numbers - 1
-            myRandomNum2 = getRandomInt(pwLower.length - 1);
+            myRandomPosition = getRandomInt(pwLower.length - 1);
+
             // Get the character at the position the random number generated
-            genPassword = genPassword.concat(pwLower.charAt(myRandomNum2));            
+            genPassword = genPassword.concat(pwLower.charAt(myRandomPosition));            
             criteriaMet = 1;
             break;
           }
-          
+
         case 1:
           if (upperChar === 1) {
-            console.log("Picked a upper");
-
             // Generate a random number between 0 and lenght of lower list of numbers - 1
-            myRandomNum2 = getRandomInt(pwUpper.length - 1);
+            myRandomPosition = getRandomInt(pwUpper.length - 1);
 
             // Get the character at the position the random number generated
-            genPassword = genPassword.concat(pwUpper.charAt(myRandomNum2));                        
+            genPassword = genPassword.concat(pwUpper.charAt(myRandomPosition));                        
             criteriaMet = 1;
             break;            
           }
 
         case 2:
           if (numericChar === 1) {
-            console.log("Picked a number");
-
             // Generate a random number between 0 and lenght of lower list of numbers - 1
-            myRandomNum2 = getRandomInt(pwNumeric.length - 1);
+            myRandomPosition = getRandomInt(pwNumeric.length - 1);
 
             // Get the character at the position the random number generated
-            genPassword = genPassword.concat(pwNumeric.charAt(myRandomNum2));                                    
+            genPassword = genPassword.concat(pwNumeric.charAt(myRandomPosition));                                    
             criteriaMet = 1;
             break;            
           }
           
         case 3:
           if (specialChar === 1) {
-            console.log("Picked a special");
-
             // Generate a random number between 0 and lenght of lower list of numbers - 1
-            myRandomNum2 = getRandomInt(pwSpecial.length - 1);
+            myRandomPosition = getRandomInt(pwSpecial.length - 1);
 
             // Get the character at the position the random number generated
-            genPassword = genPassword.concat(pwSpecial.charAt(myRandomNum2));
+            genPassword = genPassword.concat(pwSpecial.charAt(myRandomPosition));
             criteriaMet = 1;            
             break;
           }
